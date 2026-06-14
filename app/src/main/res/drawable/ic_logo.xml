@@ -1,0 +1,45 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Same artwork as the launcher icon: brand gradient + shield + lock. -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="108" android:endY="108">
+                <item android:offset="0" android:color="#FF3FF0B0" />
+                <item android:offset="0.55" android:color="#FF10B074" />
+                <item android:offset="1" android:color="#FF0C8F5E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54" android:centerY="8.64"
+                android:gradientRadius="66.96">
+                <item android:offset="0" android:color="#38FFFFFF" />
+                <item android:offset="1" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <group
+        android:scaleX="0.55" android:scaleY="0.55"
+        android:translateX="24.3" android:translateY="20.25">
+        <path
+            android:fillColor="#08130E"
+            android:pathData="M60,14 L22,28 V58 C22,86 40,103 60,111 C80,103 98,86 98,58 V28 Z" />
+        <path
+            android:strokeColor="#1AFFFFFF"
+            android:strokeWidth="1.5"
+            android:pathData="M60,14 L22,28 V58 C22,86 40,103 60,111 C80,103 98,86 98,58 V28 Z" />
+        <path
+            android:fillColor="#43EEB0"
+            android:pathData="M54,62 A12,12 0 1 1 66,62 L69,82 L51,82 Z" />
+    </group>
+</vector>

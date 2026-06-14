@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Brand gradient (top-left -> bottom-right) -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="108" android:endY="108">
+                <item android:offset="0" android:color="#FF3FF0B0" />
+                <item android:offset="0.55" android:color="#FF10B074" />
+                <item android:offset="1" android:color="#FF0C8F5E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Soft top highlight -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54" android:centerY="8.64"
+                android:gradientRadius="66.96">
+                <item android:offset="0" android:color="#38FFFFFF" />
+                <item android:offset="1" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

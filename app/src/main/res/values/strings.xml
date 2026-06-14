@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AutoGuard</string>
+    <string name="tile_automation">AutoGuard Automation</string>
+
+    <!-- Shared / content descriptions -->
+    <string name="cd_back">Back</string>
+    <string name="cd_done">Done</string>
+    <string name="cd_add">Add</string>
+    <string name="cd_remove">Remove</string>
+    <string name="cd_delete">Delete</string>
+    <string name="cd_dismiss">Dismiss</string>
+    <string name="cd_add_bssid">Add BSSID</string>
+    <string name="cd_protected">Protected</string>
+    <string name="cd_at_home">At home</string>
+    <string name="cd_not_protected">Not protected</string>
+    <string name="action_done">Done</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_open_wireguard">Open WireGuard</string>
+
+    <!-- Home -->
+    <string name="automation_title">Automation</string>
+    <string name="automation_subtitle_off">Tap to start protecting</string>
+    <string name="automation_subtitle_setup_needed">Add a trusted Wi-Fi and a default tunnel first</string>
+    <string name="automation_need_both">Add a trusted Wi-Fi and a default tunnel to enable automation.</string>
+    <string name="automation_need_tunnel">Set a default tunnel to enable automation.</string>
+    <string name="automation_need_trusted">Add a trusted Wi-Fi network to enable automation.</string>
+    <string name="automation_subtitle_armed">Armed - waiting for an untrusted network</string>
+    <string name="automation_subtitle_on">Guard untrusted networks automatically</string>
+    <string name="home_last_switched_prefix">Last switched off </string>
+    <string name="manual_override_title">Manual override</string>
+    <string name="manual_override_subtitle">Quick Settings tile</string>
+    <string name="segment_auto">Auto</string>
+    <string name="segment_force_on">Force on</string>
+    <string name="segment_force_off">Force off</string>
+    <string name="default_tunnel_title">Default tunnel</string>
+    <string name="default_tunnel_placeholder">Tunnel name (as in WireGuard)</string>
+    <string name="default_tunnel_hint">Raised on any untrusted network without a specific rule.</string>
+    <string name="nav_networks">Networks</string>
+    <string name="nav_event_log">Event log</string>
+    <string name="nav_event_log_subtitle">%1$d transitions</string>
+    <string name="nav_split">Per-app split tunnel</string>
+    <string name="nav_split_subtitle">Keep chosen apps off the VPN</string>
+    <string name="behaviour_title">Behaviour</string>
+    <string name="behaviour_mobile_title">Protect on mobile data</string>
+    <string name="behaviour_mobile_subtitle">Turn the tunnel on when there\'s no Wi-Fi.</string>
+    <string name="behaviour_unknown_title">Treat unknown Wi-Fi as untrusted</string>
+    <string name="behaviour_unknown_subtitle">If the name can\'t be read, assume public.</string>
+
+    <!-- Hero / network chip (derived state) -->
+    <string name="chip_ssid_mobile">Mobile data</string>
+    <string name="chip_ssid_unknown">Unknown network</string>
+    <string name="chip_ssid_no_connection">No connection</string>
+    <string name="chip_ssid_connected">Connected</string>
+    <string name="chip_status_trusted_pinned">Trusted · BSSID pinned</string>
+    <string name="chip_status_trusted">Trusted network</string>
+    <string name="chip_status_untrusted">Untrusted network</string>
+    <string name="chip_status_dash">-</string>
+    <string name="hero_eyebrow_not_protected">Not protected</string>
+    <string name="hero_eyebrow_protection_off">Protection off</string>
+    <string name="hero_eyebrow_protected">Protected</string>
+    <string name="hero_eyebrow_trusted">Trusted network</string>
+    <string name="hero_title_tunnel_off">Tunnel is off</string>
+    <string name="hero_title_tunnel_up">Tunnel is up</string>
+    <string name="hero_title_home">You\'re home</string>
+    <string name="hero_subtitle_automation_off">Automation is off.</string>
+    <string name="hero_subtitle_protection_off">You turned protection off.</string>
+    <string name="hero_subtitle_forced_on">Forced on - your traffic is encrypted.</string>
+    <string name="hero_subtitle_encrypted">Your traffic is encrypted on this network.</string>
+    <string name="hero_subtitle_trusted">Tunnel stays off on networks you trust.</string>
+    <string name="hero_subtitle_not_protecting">Not protecting on this network.</string>
+    <string name="tunnel_label_off">off</string>
+    <string name="networks_subtitle">%1$d trusted · %2$d BSSID pinned</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_eyebrow_all_set">All set</string>
+    <string name="onboarding_eyebrow_one_step">One step to go</string>
+    <string name="onboarding_title_ready">Ready to protect</string>
+    <string name="onboarding_title_almost">Almost protected</string>
+    <string name="onboarding_intro">AutoGuard hands the VPN to the official WireGuard app - so it stays tiny and needs no VPN permission of its own.</string>
+    <string name="onboarding_steps_title">Get going in 3 steps</string>
+    <string name="onboarding_step1_title">Install WireGuard</string>
+    <string name="onboarding_step1_body">The free, official app from the Play Store.</string>
+    <string name="onboarding_step2_title">Create your tunnel</string>
+    <string name="onboarding_step2_body">Import or scan your existing config.</string>
+    <string name="onboarding_step2_confirm">I\'ve created it</string>
+    <string name="onboarding_step3_title">Allow remote control</string>
+    <string name="onboarding_step3_body_prefix">In WireGuard: Settings → Advanced → </string>
+    <string name="onboarding_step3_body_highlight">Allow remote control apps</string>
+    <string name="onboarding_step3_body_suffix">.</string>
+    <string name="onboarding_step3_confirm">I\'ve enabled it</string>
+    <string name="onboarding_step4_title">Grant location</string>
+    <string name="onboarding_step4_body">Lets AutoGuard read the Wi-Fi name to tell home from public networks.</string>
+    <string name="onboarding_review_permissions">Review all permissions</string>
+    <string name="onboarding_continue">Continue to app</string>
+    <string name="onboarding_install">Install WireGuard</string>
+    <string name="onboarding_already_installed">Already installed? AutoGuard will detect it automatically.</string>
+    <string name="onboarding_checked_on_return">Each step is checked when you come back to AutoGuard.</string>
+    <string name="onboarding_skip">Skip for now</string>
+
+    <!-- Permissions -->
+    <string name="settings_title">Settings</string>
+    <string name="permissions_info">Location access is how AutoGuard reads the Wi-Fi name and BSSID. Without it, it can\'t tell home from a public hotspot.</string>
+    <string name="perm_location_title">Location</string>
+    <string name="perm_location_subtitle">Read Wi-Fi name &amp; BSSID</string>
+    <string name="perm_grant">Grant</string>
+    <string name="perm_background_title">Background location</string>
+    <string name="perm_background_subtitle">\"Allow all the time\" on Android 11+</string>
+    <string name="perm_set">Set</string>
+    <string name="perm_battery_title">Battery optimisation</string>
+    <string name="perm_battery_subtitle">Stay alive in the background</string>
+    <string name="perm_disable">Disable</string>
+    <string name="perm_notifications_title">Notifications</string>
+    <string name="perm_notifications_subtitle">Show tunnel status</string>
+    <string name="perm_grant_location">Grant location</string>
+    <string name="perm_all_set">You\'re all set.</string>
+    <string name="perm_granted">Granted</string>
+
+    <!-- Networks -->
+    <string name="networks_title">Networks</string>
+    <string name="networks_intro">Trusted networks keep the tunnel off. Pin a BSSID so a spoofed name on another router won\'t be trusted.</string>
+    <string name="networks_need_location">Grant location permission (Permissions screen) to scan or read Wi-Fi names.</string>
+    <string name="networks_add_current">Add current Wi-Fi as home</string>
+    <string name="networks_added_toast">Added \"%1$s\"</string>
+    <string name="networks_not_connected">Not connected to Wi-Fi right now.</string>
+    <string name="networks_cant_read">Couldn\'t read the Wi-Fi name. Turn on location services.</string>
+    <string name="networks_pick_nearby">Pick from nearby Wi-Fi</string>
+    <string name="networks_saved">Saved · %1$d</string>
+    <string name="networks_empty">No networks yet - add your home Wi-Fi to keep the tunnel off there.</string>
+    <string name="networks_add_manually">Add network manually</string>
+    <string name="network_unnamed">(unnamed)</string>
+    <string name="badge_trusted">Trusted</string>
+    <string name="badge_untrusted">Untrusted</string>
+    <string name="network_pinned_suffix">%1$s · pinned</string>
+    <string name="network_tunnel_prefix">Tunnel </string>
+    <string name="network_tunnel_suffix"> · matches on name</string>
+    <string name="network_no_bssid">No BSSID pinned - matches on name only.</string>
+
+    <!-- Edit network -->
+    <string name="edit_network_title">Edit network</string>
+    <string name="edit_network_name_label">Network name (SSID)</string>
+    <string name="edit_network_name_placeholder">Network name</string>
+    <string name="edit_trusted_title">Trusted</string>
+    <string name="edit_trusted_subtitle">Tunnel stays off on this network.</string>
+    <string name="edit_tunnel_title">Tunnel for this network</string>
+    <string name="edit_tunnel_placeholder">blank = default tunnel</string>
+    <string name="edit_pinned_title">Pinned BSSIDs</string>
+    <string name="edit_no_bssid">None - matches on SSID only.</string>
+    <string name="edit_bssid_placeholder">aa:bb:cc:dd:ee:ff</string>
+    <string name="edit_pin_current">Pin current BSSID</string>
+    <string name="edit_pinned_toast">Pinned %1$s</string>
+    <string name="edit_cant_read_bssid">Couldn\'t read the BSSID. Connect to this Wi-Fi with location on.</string>
+    <string name="edit_save">Save network</string>
+
+    <!-- Event log -->
+    <string name="event_log_title">Event log</string>
+    <string name="event_log_events">%1$d EVENTS</string>
+    <string name="event_log_today_suffix"> · TODAY</string>
+    <string name="event_log_empty">No transitions recorded yet.</string>
+    <string name="event_label_forced_on">Forced ON</string>
+    <string name="event_label_forced_off">Forced OFF</string>
+    <string name="event_label_on">Tunnel ON</string>
+    <string name="event_label_failed">Failed</string>
+    <string name="event_label_off">Tunnel OFF</string>
+
+    <!-- Split tunnel -->
+    <string name="split_title">Split tunnel</string>
+    <string name="split_card_title">Keep some apps off the VPN</string>
+    <string name="split_card_body">AutoGuard hands the VPN to WireGuard, so per-app rules live there - AutoGuard just keeps toggling that same tunnel.</string>
+    <string name="split_eyebrow">Set it up in WireGuard</string>
+    <string name="split_step1">Open your tunnel and tap Edit.</string>
+    <string name="split_step2">Tap Applications.</string>
+    <string name="split_step3">Choose Excluded applications and tick the apps to bypass the VPN.</string>
+    <string name="split_step4">Save. AutoGuard keeps toggling that tunnel as usual.</string>
+
+    <!-- Nearby Wi-Fi picker -->
+    <string name="wifi_picker_title">Nearby Wi-Fi</string>
+    <string name="wifi_picker_empty">No networks found. Make sure Wi-Fi &amp; location are on, then Rescan.</string>
+    <string name="wifi_picker_rescan">Rescan</string>
+    <string name="wifi_picker_added">Added</string>
+
+    <!-- Remote control banner -->
+    <string name="remote_banner_title">Allow remote control in WireGuard</string>
+    <string name="remote_banner_subtitle">Settings → Advanced → Allow remote control apps</string>
+
+    <!-- Recovery actions -->
+    <string name="recovery_turn_automation_on">Turn automation on</string>
+    <string name="recovery_back_to_auto">Back to Auto</string>
+
+    <!-- Relative time -->
+    <string name="time_just_now">just now</string>
+    <string name="time_minutes_ago">%1$dm ago</string>
+    <string name="time_hours_ago">%1$dh ago</string>
+    <string name="time_days_ago">%1$dd ago</string>
+
+    <!-- Notification -->
+    <string name="notif_starting">Starting…</string>
+    <string name="notif_channel_name">AutoGuard status</string>
+    <string name="notif_channel_desc">Shows which network you\'re on and the tunnel state.</string>
+    <string name="notif_action_override">Override</string>
+    <string name="notif_automation_off">Automation off</string>
+    <string name="notif_protection_off">Protection off</string>
+    <string name="notif_protected_on">Protected on %1$s</string>
+    <string name="notif_net_mobile">mobile data</string>
+    <string name="notif_net_wifi">Wi-Fi</string>
+    <string name="notif_net_this_network">this network</string>
+    <string name="notif_at_home">At home - tunnel off</string>
+    <string name="notif_tunnel_off">Tunnel off</string>
+
+    <!-- Event log descriptions (written when a transition occurs) -->
+    <string name="event_net_mobile">Mobile data</string>
+    <string name="event_net_wifi">Wi-Fi</string>
+    <string name="event_net_no_connection">No connection</string>
+    <string name="event_desc_force_off">Manual override · Force off</string>
+    <string name="event_desc_force_on">%1$s → %2$s</string>
+    <string name="event_desc_up">%1$s · untrusted → %2$s</string>
+    <string name="event_desc_back">Back to %1$s · trusted</string>
+    <string name="event_desc_not_protecting">%1$s · not protecting</string>
+
+    <!-- Quick Settings tiles -->
+    <string name="tile_auto">Auto</string>
+    <string name="tile_forced_on">Forced ON</string>
+    <string name="tile_forced_off">Forced OFF</string>
+    <string name="tile_automation_off">Automation off</string>
+    <string name="tile_on">On</string>
+    <string name="tile_off">Off</string>
+    <string name="tile_setup_needed">Set up first</string>
+    <!-- About / Terms -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_tagline">Auto-enables your WireGuard tunnel off trusted networks.</string>
+    <string name="about_whatsnew_title">What\'s new</string>
+    <string name="about_whatsnew_body">• Redesigned dark / light interface\n• Per-network tunnels and BSSID pinning\n• Quick Settings tiles and live status\n• Terms of use &amp; this About screen</string>
+    <string name="about_terms_subtitle">How AutoGuard protects you - and itself</string>
+    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog_subtitle">View all releases on GitHub</string>
+
+    <!-- Acknowledgement gate (first launch) -->
+    <string name="ack_eyebrow">Before you start</string>
+    <string name="ack_title">Terms of use</string>
+    <string name="ack_intro">Please read and accept before using AutoGuard.</string>
+    <string name="ack_summary_title">In short</string>
+    <string name="ack_summary">• AutoGuard automates the official WireGuard app - it is not a VPN itself and never sees your traffic.\n• Provided \"as is\", with no warranty. It can\'t guarantee the tunnel is always up.\n• Not affiliated with WireGuard.\n• You\'re responsible for your VPN config, the networks you trust, and lawful use.</string>
+    <string name="ack_read_full">Read the full Terms of Use</string>
+    <string name="ack_checkbox">I have read and agree to the Terms of Use</string>
+    <string name="ack_agree">Agree &amp; continue</string>
+    <string name="ack_decline">Decline</string>
+
+    <!-- Terms of use -->
+    <string name="terms_title">Terms of use</string>
+    <string name="terms_effective">AutoGuard %1$s</string>
+    <string name="terms_body">AutoGuard automates turning the official WireGuard app\'s VPN tunnel on and off based on the Wi-Fi network you are connected to. AutoGuard is not a VPN, does not route or inspect your network traffic, and keeps no personal data off your device.\n\nNo warranty. AutoGuard is provided \"as is\" and \"as available\", without warranty of any kind to the maximum extent permitted by law. It is not guaranteed to be uninterrupted, error-free, or secure, and cannot guarantee the tunnel is active at any given moment - protection depends on the WireGuard app, Android, and your device.\n\nNot affiliated. AutoGuard is not affiliated with, endorsed by, or connected to WireGuard or its trademark owner.\n\nYour responsibility. You are responsible for your VPN configuration and credentials, choosing which networks to trust, granting the permissions AutoGuard needs, and complying with all applicable laws.\n\nNo liability. To the maximum extent permitted by law, the developer is not liable for any data loss, security incident, exposure resulting from a tunnel failing to start, or any direct or indirect damages arising from your use of, or inability to use, the app.\n\nBy using AutoGuard you accept these terms.</string>
+    <string name="hero_eyebrow_connecting">Connecting</string>
+    <string name="hero_title_connecting">Starting tunnel…</string>
+    <string name="hero_subtitle_connecting">Waiting for WireGuard to connect.</string>
+    <string name="notif_connecting">Connecting…</string>
+</resources>

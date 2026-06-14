@@ -1,0 +1,73 @@
+name: Release
+
+# Push a version tag to trigger a release, e.g.:
+#   git tag v1.0.0 && git push origin v1.0.0
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # git-cliff needs full history + tags to build the changelog.
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Decode keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.keystore"
+
+      - name: Build signed release APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        # versionName comes from the tag (v1.4.2 -> 1.4.2); versionCode is derived
+        # from it in build.gradle.kts. github.run_number guarantees a unique, rising
+        # versionCode even for manual (non-tag) dispatches.
+        run: ./gradlew assembleRelease --no-daemon
+          -PversionName="${GITHUB_REF_NAME#v}"
+          -PversionCode="${{ github.run_number }}"
+
+      - name: Rename APK
+        run: |
+          mkdir -p dist
+          cp app/build/outputs/apk/release/app-release.apk \
+             "dist/AutoGuard-${GITHUB_REF_NAME}.apk"
+
+      - name: Generate changelog (git-cliff)
+        id: changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          # --latest = notes for the tag being released; --strip header = drop the title.
+          args: --latest --strip header
+        env:
+          OUTPUT: CHANGES.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/AutoGuard-${{ github.ref_name }}.apk
+          body_path: CHANGES.md
+          fail_on_unmatched_files: true
