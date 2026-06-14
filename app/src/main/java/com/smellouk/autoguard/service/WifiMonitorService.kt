@@ -54,6 +54,20 @@ class WifiMonitorService : Service() {
         override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) = schedule()
     }
 
+    // Real OS signal: a VPN transport coming up / going down. Logged as events and
+    // re-evaluates so the notification reflects the actual tunnel state.
+    private var vpnUp = false
+    private val vpnCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            if (!vpnUp) { vpnUp = true; eventLog.add(System.currentTimeMillis(), "VPN_UP" + EventLog.SEP + getString(R.string.event_vpn_up_desc)) }
+            schedule()
+        }
+        override fun onLost(network: Network) {
+            if (vpnUp) { vpnUp = false; eventLog.add(System.currentTimeMillis(), "VPN_DOWN" + EventLog.SEP + getString(R.string.event_vpn_down_desc)) }
+            schedule()
+        }
+    }
+
     // React immediately if the user edits settings or flips the QS override.
     private val prefsListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> schedule() }
@@ -70,6 +84,11 @@ class WifiMonitorService : Service() {
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
         cm.registerNetworkCallback(request, networkCallback)
+        val vpnRequest = NetworkRequest.Builder()
+            .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+            .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+            .build()
+        runCatching { cm.registerNetworkCallback(vpnRequest, vpnCallback) }
         settings.registerListener(prefsListener)
         schedule()
     }
@@ -84,6 +103,7 @@ class WifiMonitorService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         runCatching { cm.unregisterNetworkCallback(networkCallback) }
+        runCatching { cm.unregisterNetworkCallback(vpnCallback) }
         runCatching { settings.unregisterListener(prefsListener) }
         main.removeCallbacks(debounce)
     }

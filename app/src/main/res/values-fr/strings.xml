@@ -253,4 +253,8 @@
     <string name="hero_title_connecting">Démarrage du tunnel…</string>
     <string name="hero_subtitle_connecting">En attente de la connexion de WireGuard.</string>
     <string name="notif_connecting">Connexion…</string>
+    <string name="event_label_vpn_up">VPN connecté</string>
+    <string name="event_label_vpn_down">VPN déconnecté</string>
+    <string name="event_vpn_up_desc">Le tunnel WireGuard est actif</string>
+    <string name="event_vpn_down_desc">Le tunnel WireGuard s\'est arrêté</string>
 </resources>

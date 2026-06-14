@@ -253,4 +253,8 @@
     <string name="hero_title_connecting">جارٍ بدء النفق…</string>
     <string name="hero_subtitle_connecting">في انتظار اتصال WireGuard.</string>
     <string name="notif_connecting">جارٍ الاتصال…</string>
+    <string name="event_label_vpn_up">تم اتصال VPN</string>
+    <string name="event_label_vpn_down">انقطع VPN</string>
+    <string name="event_vpn_up_desc">نفق WireGuard نشط</string>
+    <string name="event_vpn_down_desc">توقّف نفق WireGuard</string>
 </resources>

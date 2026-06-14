@@ -840,6 +840,8 @@ fun EventLogScreen(onBack: () -> Unit) {
                             "FORCED_ON" -> stringResource(R.string.event_label_forced_on) to Accent.GREEN
                             "FORCED_OFF" -> stringResource(R.string.event_label_forced_off) to Accent.AMBER
                             "ON" -> stringResource(R.string.event_label_on) to Accent.GREEN
+                            "VPN_UP" -> stringResource(R.string.event_label_vpn_up) to Accent.GREEN
+                            "VPN_DOWN" -> stringResource(R.string.event_label_vpn_down) to (null as Accent?)
                             "FAILED" -> stringResource(R.string.event_label_failed) to Accent.RED
                             else -> stringResource(R.string.event_label_off) to null
                         }
