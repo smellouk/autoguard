@@ -55,6 +55,7 @@ data class HomeUiState(
     val needsDefaultTunnel: Boolean,
     val needsTrustedNetwork: Boolean,
     val showRemoteHint: Boolean,
+    val showTunnelFailed: Boolean,
     val networksSubtitle: String,
     val eventCount: Int,
     val lastSwitch: EventEntry?,
@@ -92,6 +93,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         settings.defaultTunnels = text.split(",").map(String::trim).filter(String::isNotEmpty)
     }
     fun dismissRemoteHint() { settings.remoteControlHintDismissed = true }
+    fun retryTunnel() { WifiMonitorService.retry(getApplication()) }
     /** Re-derive after returning to the screen (permission grants etc. aren't change events). */
     fun refresh() { refresh.value++ }
 
@@ -211,6 +213,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                 needsDefaultTunnel = config.defaultTunnels.isEmpty(),
                 needsTrustedNetwork = rules.none { it.trusted },
                 showRemoteHint = WireGuardController.isWireGuardInstalled(context) && !settings.remoteControlHintDismissed,
+                showTunnelFailed = settings.tunnelFailed && config.automationEnabled && config.override != OverrideMode.FORCE_OFF,
                 networksSubtitle = context.getString(R.string.networks_subtitle, rules.count { it.trusted }, rules.count { it.bssids.isNotEmpty() }),
                 eventCount = log.entries().size,
                 lastSwitch = log.entries().firstOrNull(),

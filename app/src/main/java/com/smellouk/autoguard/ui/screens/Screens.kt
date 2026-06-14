@@ -49,6 +49,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Radar
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
@@ -204,6 +205,16 @@ fun HomeScreen(onNavigate: (HomeDest) -> Unit) {
                 onOpen = { WireGuardController.openWireGuard(context) },
                 onDismiss = { vm.dismissRemoteHint() }
             )
+        }
+
+        if (ui.showTunnelFailed) {
+            AGCard(borderColor = AG.colors.red.copy(alpha = 0.4f), background = AG.colors.wash(Accent.RED)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    CardTitle(stringResource(R.string.tunnel_failed_title))
+                    Text(stringResource(R.string.tunnel_failed_body), style = AGText.bodySm, color = AG.colors.textDim)
+                    PrimaryButton(stringResource(R.string.action_retry), Icons.Filled.Refresh) { vm.retryTunnel() }
+                }
+            }
         }
 
         Hero(

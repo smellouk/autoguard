@@ -75,6 +75,11 @@ class Settings(context: Context) {
         get() = prefs.getBoolean(KEY_TERMS, false)
         set(value) = prefs.edit().putBoolean(KEY_TERMS, value).apply()
 
+    /** Set when AutoGuard asked WireGuard to connect but the OS VPN never came up. */
+    var tunnelFailed: Boolean
+        get() = prefs.getBoolean(KEY_TUNNEL_FAILED, false)
+        set(value) { if (value != tunnelFailed) prefs.edit().putBoolean(KEY_TUNNEL_FAILED, value).apply() }
+
     /** All configured per-network rules (home networks + per-network tunnels). */
     var rules: List<NetworkRule>
         get() = parseRules(prefs.getString(KEY_RULES, "[]") ?: "[]")
@@ -176,5 +181,6 @@ class Settings(context: Context) {
         private const val KEY_TUNNEL_OK = "tunnel_setup_confirmed"
         private const val KEY_ONBOARDED = "onboarding_complete"
         private const val KEY_TERMS = "terms_accepted"
+        private const val KEY_TUNNEL_FAILED = "tunnel_failed"
     }
 }

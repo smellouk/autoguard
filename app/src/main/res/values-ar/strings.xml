@@ -257,4 +257,9 @@
     <string name="event_label_vpn_down">انقطع VPN</string>
     <string name="event_vpn_up_desc">نفق WireGuard نشط</string>
     <string name="event_vpn_down_desc">توقّف نفق WireGuard</string>
+    <string name="action_retry">إعادة المحاولة</string>
+    <string name="notif_tunnel_failed">تعذّر بدء النفق</string>
+    <string name="event_tunnel_failed_desc">تعذّر بدء النفق - لم يتصل WireGuard</string>
+    <string name="tunnel_failed_title">لم يبدأ النفق</string>
+    <string name="tunnel_failed_body">طلب AutoGuard من WireGuard الاتصال لكنه لم يبدأ. افتح WireGuard وتحقّق من النفق.</string>
 </resources>

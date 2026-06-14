@@ -257,4 +257,9 @@
     <string name="event_label_vpn_down">VPN disconnected</string>
     <string name="event_vpn_up_desc">WireGuard tunnel is up</string>
     <string name="event_vpn_down_desc">WireGuard tunnel went down</string>
+    <string name="action_retry">Retry</string>
+    <string name="notif_tunnel_failed">Tunnel failed to start</string>
+    <string name="event_tunnel_failed_desc">Tunnel failed to start - WireGuard did not connect</string>
+    <string name="tunnel_failed_title">Tunnel did not start</string>
+    <string name="tunnel_failed_body">AutoGuard asked WireGuard to connect but it did not come up. Open WireGuard and check the tunnel.</string>
 </resources>

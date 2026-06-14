@@ -57,9 +57,15 @@ class WifiMonitorService : Service() {
     // Real OS signal: a VPN transport coming up / going down. Logged as events and
     // re-evaluates so the notification reflects the actual tunnel state.
     private var vpnUp = false
+    private var verifyRetries = 0
+    private val verify = Runnable { verifyTunnel() }
     private val vpnCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             if (!vpnUp) { vpnUp = true; eventLog.add(System.currentTimeMillis(), "VPN_UP" + EventLog.SEP + getString(R.string.event_vpn_up_desc)) }
+            // The tunnel really came up — clear any pending verification / failure.
+            verifyRetries = 0
+            main.removeCallbacks(verify)
+            settings.tunnelFailed = false
             schedule()
         }
         override fun onLost(network: Network) {
@@ -94,6 +100,10 @@ class WifiMonitorService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == ACTION_RETRY) {
+            settings.tunnelFailed = false
+            activeTunnels = emptySet() // force the next evaluate to re-send the up intent
+        }
         // Re-evaluate on every (re)start — e.g. the BOOT_COMPLETED that follows
         // LOCKED_BOOT_COMPLETED once the user unlocks and the SSID becomes readable.
         schedule()
@@ -142,7 +152,33 @@ class WifiMonitorService : Service() {
 
         activeTunnels = desired
         firstRun = false
+
+        // Verify a raise actually brings the OS VPN up; auto-retry then flag failure.
+        if (toUp.isNotEmpty()) {
+            verifyRetries = 0
+            main.removeCallbacks(verify)
+            main.postDelayed(verify, VERIFY_MS)
+        } else if (!up) {
+            // Tunnel intentionally down — nothing to verify, clear any failure.
+            main.removeCallbacks(verify)
+            settings.tunnelFailed = false
+        }
+
         updateNotification(plainStatus(state, config, up), notifColor(state, config, up))
+    }
+
+    /** Runs [VERIFY_MS] after an "up" intent: retry once, then mark the tunnel failed. */
+    private fun verifyTunnel() {
+        if (vpnUp || activeTunnels.isEmpty()) return // came up, or no longer wanted
+        if (verifyRetries < MAX_RETRIES) {
+            verifyRetries++
+            activeTunnels.forEach { WireGuardController.setTunnel(this, it, up = true) }
+            main.postDelayed(verify, VERIFY_MS)
+            return
+        }
+        settings.tunnelFailed = true
+        eventLog.add(System.currentTimeMillis(), "FAILED" + EventLog.SEP + getString(R.string.event_tunnel_failed_desc))
+        updateNotification(getString(R.string.notif_tunnel_failed), COLOR_RED)
     }
 
     /** "TYPEhuman description" — type drives the timeline dot colour. */
@@ -240,6 +276,17 @@ class WifiMonitorService : Service() {
         private const val COLOR_BLUE = 0xFF74B6FF.toInt()
         private const val COLOR_AMBER = 0xFFFFC24B.toInt()
         private const val COLOR_NEUTRAL = 0xFF8C9692.toInt()
+        private const val COLOR_RED = 0xFFFF5D6B.toInt()
+        private const val VERIFY_MS = 8000L
+        private const val MAX_RETRIES = 1
+        const val ACTION_RETRY = "com.smellouk.autoguard.action.RETRY_TUNNEL"
+
+        /** Force a re-send of the desired tunnel(s) — used by the "Retry" banner. */
+        fun retry(context: Context) {
+            val intent = Intent(context, WifiMonitorService::class.java).setAction(ACTION_RETRY)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) context.startForegroundService(intent)
+            else context.startService(intent)
+        }
 
         fun start(context: Context) {
             val intent = Intent(context, WifiMonitorService::class.java)
