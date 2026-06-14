@@ -307,7 +307,13 @@ class WifiMonitorService : Service() {
          */
         fun sync(context: Context) {
             val s = Settings(context)
-            if (s.automationEnabled || s.overrideMode != OverrideMode.AUTO) start(context) else stop(context)
+            if (s.automationEnabled || s.overrideMode != OverrideMode.AUTO) {
+                start(context)
+                WatchdogWorker.schedule(context) // periodic restart in case the OEM kills us
+            } else {
+                stop(context)
+                WatchdogWorker.cancel(context)
+            }
         }
     }
 }
