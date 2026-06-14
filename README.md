@@ -31,6 +31,18 @@ APK, and the always-on monitor idles at a few hundred KB of RAM.
 > tunnel is pointless overhead, and many "always-on" setups silently drop on reboot.
 > AutoGuard is *armed* all the time but only *protects* when you're actually exposed.
 
+<div align="center">
+
+### Signing certificate fingerprints
+
+Use these to verify the APK signature before installing.
+
+```
+68:60:4D:40:E0:97:3C:BC:40:58:0C:5A:F7:8F:6B:B4:3F:4B:E1:FE:39:22:4D:DF:91:39:0A:8B:DD:7E:E4:75
+```
+
+</div>
+
 ## 📸 Screenshots
 
 <div align="center">
