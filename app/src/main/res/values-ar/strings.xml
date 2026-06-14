@@ -229,7 +229,7 @@
     <string name="about_version">الإصدار %1$s</string>
     <string name="about_tagline">يفعّل نفق WireGuard تلقائيًا خارج الشبكات الموثوقة.</string>
     <string name="about_whatsnew_title">الجديد</string>
-    <string name="about_whatsnew_body">• واجهة فاتحة / داكنة معاد تصميمها\n• أنفاق لكل شبكة وتثبيت BSSID\n• مربعات الإعدادات السريعة والحالة المباشرة\n• شروط الاستخدام وشاشة \"حول\" هذه</string>
+    <string name="about_whatsnew_body">• حماية مؤكَّدة — أخضر فقط عندما يكون VPN نشطًا فعلاً\n• أحداث اتصال/قطع VPN الحقيقية في السجل\n• أنفاق لكل شبكة وتثبيت BSSID\n• مربّعات الإعدادات السريعة والحالة المباشرة\n• الإنجليزية والفرنسية والعربية</string>
     <string name="about_terms_subtitle">كيف يحميك AutoGuard - ويحمي نفسه</string>
     <string name="about_changelog">سجل التغييرات</string>
     <string name="about_changelog_subtitle">عرض كل الإصدارات على GitHub</string>

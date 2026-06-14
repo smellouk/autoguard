@@ -229,7 +229,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_tagline">Auto-enables your WireGuard tunnel off trusted networks.</string>
     <string name="about_whatsnew_title">What\'s new</string>
-    <string name="about_whatsnew_body">• Redesigned dark / light interface\n• Per-network tunnels and BSSID pinning\n• Quick Settings tiles and live status\n• Terms of use &amp; this About screen</string>
+    <string name="about_whatsnew_body">• Verified protection — green only when the VPN is really up\n• Real VPN connect/disconnect events in the log\n• Per-network tunnels and BSSID pinning\n• Quick Settings tiles and live status\n• English, French &amp; Arabic</string>
     <string name="about_terms_subtitle">How AutoGuard protects you - and itself</string>
     <string name="about_changelog">Changelog</string>
     <string name="about_changelog_subtitle">View all releases on GitHub</string>
