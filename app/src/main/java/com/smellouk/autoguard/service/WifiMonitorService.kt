@@ -27,7 +27,12 @@ import com.smellouk.autoguard.net.OverrideMode
 import com.smellouk.autoguard.net.TunnelConfig
 import com.smellouk.autoguard.net.TunnelDecider
 import com.smellouk.autoguard.ui.MainActivity
+import androidx.glance.appwidget.updateAll
+import com.smellouk.autoguard.widget.AutoGuardWidget
 import com.smellouk.autoguard.wireguard.WireGuardController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A minimal foreground service. It registers ONE network callback and otherwise
@@ -313,6 +318,11 @@ class WifiMonitorService : Service() {
             } else {
                 stop(context)
                 WatchdogWorker.cancel(context)
+            }
+            // Every override/automation change funnels through sync(), so refresh the
+            // home-screen widget here (covers app, QS tiles, notification and widget itself).
+            CoroutineScope(Dispatchers.Default).launch {
+                runCatching { AutoGuardWidget().updateAll(context) }
             }
         }
     }

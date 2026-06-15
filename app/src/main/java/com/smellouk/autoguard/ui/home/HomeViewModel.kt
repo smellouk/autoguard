@@ -17,6 +17,9 @@ import com.smellouk.autoguard.net.NetworkInspector
 import com.smellouk.autoguard.net.OverrideMode
 import com.smellouk.autoguard.net.TunnelDecider
 import com.smellouk.autoguard.service.WifiMonitorService
+import com.smellouk.autoguard.widget.AutoGuardWidget
+import androidx.glance.appwidget.updateAll
+import kotlinx.coroutines.launch
 import com.smellouk.autoguard.ui.components.HeroKind
 import com.smellouk.autoguard.ui.theme.Accent
 import com.smellouk.autoguard.wireguard.WireGuardController
@@ -85,8 +88,12 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         if (on && !settings.canEnableAutomation()) return
         settings.automationEnabled = on
         WifiMonitorService.sync(getApplication())
+        refreshWidget()
     }
-    fun setOverride(mode: OverrideMode) { settings.overrideMode = mode; WifiMonitorService.sync(getApplication()) }
+    fun setOverride(mode: OverrideMode) { settings.overrideMode = mode; WifiMonitorService.sync(getApplication()); refreshWidget() }
+    private fun refreshWidget() {
+        viewModelScope.launch { runCatching { AutoGuardWidget().updateAll(getApplication()) } }
+    }
     fun setOnMobile(on: Boolean) { settings.enableOnMobileData = on }
     fun setUnknown(on: Boolean) { settings.treatUnknownAsUntrusted = on }
     fun setDefaultTunnel(text: String) {

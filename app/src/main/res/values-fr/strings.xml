@@ -229,7 +229,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_tagline">Active votre tunnel WireGuard hors des réseaux de confiance.</string>
     <string name="about_whatsnew_title">Nouveautés</string>
-    <string name="about_whatsnew_body">• Protection vérifiée — vert seulement quand le VPN est réellement actif\n• Événements VPN (connexion/déconnexion) réels dans le journal\n• Tunnels par réseau et épinglage du BSSID\n• Tuiles Réglages rapides et statut en direct\n• Anglais, français et arabe</string>
+    <string name="about_whatsnew_body">• Widget de contrôle rapide sur l accueil\n• Nouvelle tentative auto si le tunnel échoue\n• Surveillance de fiabilité qui garde la protection active\n• Tunnels par réseau et épinglage BSSID\n• Tuiles de réglages rapides en direct</string>
     <string name="about_terms_subtitle">Comment AutoGuard vous protège - et se protège</string>
     <string name="about_changelog">Journal des modifications</string>
     <string name="about_changelog_subtitle">Voir toutes les versions sur GitHub</string>
