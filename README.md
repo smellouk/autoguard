@@ -15,6 +15,13 @@
 
 </div>
 
+<div align="center">
+
+[<img src="docs/get_github.png" alt="Get it on GitHub" width="45%">](https://github.com/smellouk/autoguard/releases/latest)
+[<img src="docs/get_obtainium.png" alt="Get it on Obtainium" width="45%">](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A//app/%257B%2522id%2522%253A%2522com.smellouk.autoguard%2522%252C%2522url%2522%253A%2522https%253A//github.com/smellouk/autoguard%2522%252C%2522author%2522%253A%2522smellouk%2522%252C%2522name%2522%253A%2522AutoGuard%2522%257D)
+
+</div>
+
 <p align="center">
 AutoGuard turns your WireGuard tunnel <strong>on</strong> the moment you leave a trusted Wi-Fi,
 and <strong>off</strong> again when you get home - automatically, in the background, using almost no battery.
