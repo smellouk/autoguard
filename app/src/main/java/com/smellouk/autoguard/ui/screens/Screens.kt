@@ -32,6 +32,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
+import androidx.core.content.IntentCompat
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -193,6 +194,9 @@ fun HomeScreen(onNavigate: (HomeDest) -> Unit) {
     // jiggle the cursor); everything else binds straight to the reactive state.
     var defaultTunnel by remember { mutableStateOf(ui.defaultTunnel) }
 
+    // One-tap re-grant of the WireGuard control permission from the status banner.
+    val controlLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.refresh() }
+
     ScreenFrame(
         wordmark = true,
         trailing = {
@@ -205,6 +209,18 @@ fun HomeScreen(onNavigate: (HomeDest) -> Unit) {
                 onOpen = { WireGuardController.openWireGuard(context) },
                 onDismiss = { vm.dismissRemoteHint() }
             )
+        }
+
+        if (ui.controlPermissionMissing) {
+            AGCard(borderColor = AG.colors.red.copy(alpha = 0.4f), background = AG.colors.wash(Accent.RED)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    CardTitle(stringResource(R.string.control_perm_title))
+                    Text(stringResource(R.string.control_perm_body), style = AGText.bodySm, color = AG.colors.textDim)
+                    PrimaryButton(stringResource(R.string.control_perm_grant), Icons.Filled.Shield) {
+                        controlLauncher.launch(WireGuardController.PERMISSION_CONTROL_TUNNELS)
+                    }
+                }
+            }
         }
 
         if (ui.showTunnelFailed) {
@@ -410,11 +426,16 @@ fun OnboardingScreen(onContinue: () -> Unit, onOpenPermissions: () -> Unit) {
     val installed = remember(tick) { WireGuardController.isWireGuardInstalled(context) }
     var tunnelDone by remember(tick) { mutableStateOf(settings.tunnelSetupConfirmed) }
     var remoteDone by remember(tick) { mutableStateOf(settings.remoteControlHintDismissed) }
+    var controlGranted by remember(tick) { mutableStateOf(WireGuardController.hasControlPermission(context)) }
     var locationGranted by remember(tick) { mutableStateOf(NetworkInspector.hasLocationPermission(context)) }
 
     val locationLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
         locationGranted = NetworkInspector.hasLocationPermission(context)
     }
+    val controlLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        controlGranted = WireGuardController.hasControlPermission(context)
+    }
+    fun requestControl() = controlLauncher.launch(WireGuardController.PERMISSION_CONTROL_TUNNELS)
     fun requestLocation() = locationLauncher.launch(
         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
     )
@@ -424,10 +445,11 @@ fun OnboardingScreen(onContinue: () -> Unit, onOpenPermissions: () -> Unit) {
         !installed -> 1
         !tunnelDone -> 2
         !remoteDone -> 3
-        !locationGranted -> 4
-        else -> 5
+        !controlGranted -> 4
+        !locationGranted -> 5
+        else -> 6
     }
-    val allDone = installed && tunnelDone && remoteDone && locationGranted
+    val allDone = installed && tunnelDone && remoteDone && controlGranted && locationGranted
 
     fun stateOf(step: Int, done: Boolean) = when {
         done -> StepState.DONE
@@ -479,7 +501,9 @@ fun OnboardingScreen(onContinue: () -> Unit, onOpenPermissions: () -> Unit) {
                         onConfirm = { remoteDone = true; settings.remoteControlHintDismissed = true },
                     )
                 }
-                StepRow(4, stateOf(4, locationGranted), stringResource(R.string.onboarding_step4_title),
+                StepRow(4, stateOf(4, controlGranted), stringResource(R.string.onboarding_step_control_title),
+                    AnnotatedString(stringResource(R.string.onboarding_step_control_body)))
+                StepRow(5, stateOf(5, locationGranted), stringResource(R.string.onboarding_step4_title),
                     AnnotatedString(stringResource(R.string.onboarding_step4_body)))
             }
         }
@@ -491,7 +515,8 @@ fun OnboardingScreen(onContinue: () -> Unit, onOpenPermissions: () -> Unit) {
                 Text(stringResource(R.string.onboarding_already_installed),
                     style = AGText.subtitle, color = AG.colors.textFaint, modifier = Modifier.fillMaxWidth())
             }
-            active == 4 -> PrimaryButton(stringResource(R.string.perm_grant_location), Icons.Filled.LocationOn) { requestLocation() }
+            active == 4 -> PrimaryButton(stringResource(R.string.onboarding_step_control_grant), Icons.Filled.Shield) { requestControl() }
+            active == 5 -> PrimaryButton(stringResource(R.string.perm_grant_location), Icons.Filled.LocationOn) { requestLocation() }
             else -> {
                 Text(stringResource(R.string.onboarding_checked_on_return),
                     style = AGText.subtitle, color = AG.colors.textFaint, modifier = Modifier.fillMaxWidth())
@@ -568,10 +593,22 @@ fun SettingsScreen(onBack: () -> Unit, onViewTerms: () -> Unit) {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
     }
+    val wgInstalled = remember(tick) { WireGuardController.isWireGuardInstalled(context) }
+    val controlPerm = remember(tick) { WireGuardController.hasControlPermission(context) }
+    // Android 11+ auto-resets permissions for apps left unused for months — fatal for an
+    // always-on guard. True once the app is exempt; nothing to do on older versions.
+    val keepPerms = remember(tick) {
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.R || context.packageManager.isAutoRevokeWhitelisted()
+    }
 
     val locationLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {}
     val notifLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
-    val allGranted = location && background && battery && notifications
+    val controlLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
+    val backgroundLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
+    val unusedLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+    // The control permission can only be granted once WireGuard (which defines it) is installed.
+    val allGranted = location && background && battery && notifications &&
+        (!wgInstalled || controlPerm) && keepPerms
 
     ScreenFrame(title = stringResource(R.string.settings_title), onBack = onBack) {
         AGCard(borderColor = AG.colors.amber.copy(alpha = 0.22f), background = AG.colors.wash(Accent.AMBER)) {
@@ -584,14 +621,28 @@ fun SettingsScreen(onBack: () -> Unit, onViewTerms: () -> Unit) {
 
         AGCard {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                PermissionRow(Icons.Filled.Shield, stringResource(R.string.perm_control_title), stringResource(R.string.perm_control_subtitle),
+                    granted = controlPerm, accent = Accent.GREEN, actionLabel = stringResource(R.string.perm_grant), style = PillStyle.SOLID) {
+                    controlLauncher.launch(WireGuardController.PERMISSION_CONTROL_TUNNELS)
+                }
+                HDivider()
                 PermissionRow(Icons.Filled.LocationOn, stringResource(R.string.perm_location_title), stringResource(R.string.perm_location_subtitle),
                     granted = location, accent = Accent.AMBER, actionLabel = stringResource(R.string.perm_grant), style = PillStyle.SOLID) {
                     locationLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
                 }
                 HDivider()
+                val bgHint = stringResource(R.string.perm_background_hint)
                 PermissionRow(Icons.Filled.LocationOn, stringResource(R.string.perm_background_title), stringResource(R.string.perm_background_subtitle),
                     granted = background, accent = Accent.BLUE, actionLabel = stringResource(R.string.perm_set), style = PillStyle.OUTLINE) {
-                    openAppDetails(context)
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                        // Android 10's dialog still offers "Allow all the time" directly.
+                        backgroundLauncher.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                    } else {
+                        // Android 11+ has no public deep-link to the location page; App info
+                        // is the supported target, so nudge the user to the right toggle.
+                        Toast.makeText(context, bgHint, Toast.LENGTH_LONG).show()
+                        openAppDetails(context)
+                    }
                 }
                 HDivider()
                 PermissionRow(Icons.Filled.Bolt, stringResource(R.string.perm_battery_title), stringResource(R.string.perm_battery_subtitle),
@@ -604,6 +655,13 @@ fun SettingsScreen(onBack: () -> Unit, onViewTerms: () -> Unit) {
                 PermissionRow(Icons.Filled.Notifications, stringResource(R.string.perm_notifications_title), stringResource(R.string.perm_notifications_subtitle),
                     granted = notifications, accent = Accent.AMBER, actionLabel = stringResource(R.string.perm_grant), style = PillStyle.SOLID) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) notifLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                HDivider()
+                PermissionRow(Icons.Filled.Lock, stringResource(R.string.perm_unused_title), stringResource(R.string.perm_unused_subtitle),
+                    granted = keepPerms, accent = Accent.BLUE, actionLabel = stringResource(R.string.perm_set), style = PillStyle.OUTLINE) {
+                    runCatching {
+                        unusedLauncher.launch(IntentCompat.createManageUnusedAppRestrictionsIntent(context, context.packageName))
+                    }
                 }
             }
         }

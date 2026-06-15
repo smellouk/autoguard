@@ -74,7 +74,7 @@
     <string name="onboarding_title_ready">Prêt à protéger</string>
     <string name="onboarding_title_almost">Presque protégé</string>
     <string name="onboarding_intro">AutoGuard confie le VPN à l\'application officielle WireGuard - il reste donc minuscule et n\'a besoin d\'aucune autorisation VPN propre.</string>
-    <string name="onboarding_steps_title">Démarrez en 3 étapes</string>
+    <string name="onboarding_steps_title">Configuration</string>
     <string name="onboarding_step1_title">Installer WireGuard</string>
     <string name="onboarding_step1_body">L\'application officielle et gratuite du Play Store.</string>
     <string name="onboarding_step2_title">Créez votre tunnel</string>
@@ -94,11 +94,14 @@
     <!-- Permissions -->
     <string name="settings_title">Paramètres</string>
     <string name="permissions_info">L\'accès à la localisation permet à AutoGuard de lire le nom du Wi-Fi et le BSSID. Sans cela, il ne peut pas distinguer votre domicile d\'un point d\'accès public.</string>
+    <string name="perm_control_title">Contrôler WireGuard</string>
+    <string name="perm_control_subtitle">Requis pour activer le tunnel</string>
     <string name="perm_location_title">Localisation</string>
     <string name="perm_location_subtitle">Lire le nom du Wi-Fi et le BSSID</string>
     <string name="perm_grant">Autoriser</string>
     <string name="perm_background_title">Localisation en arrière-plan</string>
     <string name="perm_background_subtitle">« Toujours autoriser » sur Android 11+</string>
+    <string name="perm_background_hint">Touchez Autorisations → Localisation → Toujours autoriser</string>
     <string name="perm_set">Définir</string>
     <string name="perm_battery_title">Optimisation de la batterie</string>
     <string name="perm_battery_subtitle">Rester actif en arrière-plan</string>
@@ -108,6 +111,8 @@
     <string name="perm_grant_location">Autoriser la localisation</string>
     <string name="perm_all_set">Tout est prêt.</string>
     <string name="perm_granted">Accordé</string>
+    <string name="perm_unused_title">Conserver les autorisations</string>
+    <string name="perm_unused_subtitle">Empêcher Android de réinitialiser les autorisations inutilisées</string>
 
     <!-- Networks -->
     <string name="networks_title">Réseaux</string>
@@ -222,6 +227,9 @@
     <string name="automation_need_both">Ajoutez un Wi-Fi fiable et un tunnel par défaut pour activer l\'automatisation.</string>
     <string name="automation_need_tunnel">Définissez un tunnel par défaut pour activer l\'automatisation.</string>
     <string name="automation_need_trusted">Ajoutez un réseau Wi-Fi fiable pour activer l\'automatisation.</string>
+    <string name="onboarding_step_control_title">Autoriser AutoGuard à contrôler WireGuard</string>
+    <string name="onboarding_step_control_body">Accorde l\'autorisation que WireGuard exige avant d\'accepter les changements de tunnel d\'AutoGuard.</string>
+    <string name="onboarding_step_control_grant">Autoriser le contrôle</string>
     <string name="onboarding_step4_title">Autoriser la localisation</string>
     <string name="onboarding_step4_body">Permet à AutoGuard de lire le nom du Wi-Fi pour distinguer votre domicile des réseaux publics.</string>
     <string name="onboarding_review_permissions">Vérifier les autorisations</string>
@@ -229,7 +237,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_tagline">Active votre tunnel WireGuard hors des réseaux de confiance.</string>
     <string name="about_whatsnew_title">Nouveautés</string>
-    <string name="about_whatsnew_body">• Widget de contrôle rapide sur l accueil\n• Nouvelle tentative auto si le tunnel échoue\n• Surveillance de fiabilité qui garde la protection active\n• Tunnels par réseau et épinglage BSSID\n• Tuiles de réglages rapides en direct</string>
+    <string name="about_whatsnew_body">• Les tunnels WireGuard basculent désormais de façon fiable\n• Accordez ou réparez le contrôle WireGuard depuis l\'accueil\n• Reconnexion automatique si le VPN tombe ou si vous le coupez\n• Empêche Android de réinitialiser les autorisations inutilisées\n• Configuration plus claire de la localisation en arrière-plan</string>
     <string name="about_terms_subtitle">Comment AutoGuard vous protège - et se protège</string>
     <string name="about_changelog">Journal des modifications</string>
     <string name="about_changelog_subtitle">Voir toutes les versions sur GitHub</string>
@@ -262,4 +270,9 @@
     <string name="event_tunnel_failed_desc">Échec du démarrage du tunnel - WireGuard non connecté</string>
     <string name="tunnel_failed_title">Le tunnel ne démarre pas</string>
     <string name="tunnel_failed_body">AutoGuard a demandé la connexion à WireGuard, sans succès. Ouvrez WireGuard et vérifiez le tunnel.</string>
+
+    <!-- Accueil : autorisation de contrôle WireGuard révoquée -->
+    <string name="control_perm_title">Impossible de contrôler WireGuard</string>
+    <string name="control_perm_body">AutoGuard n\'a pas l\'autorisation dont WireGuard a besoin pour accepter les changements de tunnel — il ne peut donc pas activer ou désactiver le VPN. Cela peut arriver si Android l\'a réinitialisée.</string>
+    <string name="control_perm_grant">Accorder l\'autorisation</string>
 </resources>

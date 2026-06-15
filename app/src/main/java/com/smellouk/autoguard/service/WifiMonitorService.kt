@@ -148,7 +148,13 @@ class WifiMonitorService : Service() {
         val toDown = (if (firstRun) managed else activeTunnels) - desired
         val up = desired.isNotEmpty()
 
+        // Drift: we still want the tunnel up but the OS VPN isn't actually up — e.g.
+        // the user disconnected inside WireGuard, or it dropped on its own. The plain
+        // diff is empty here (desired == activeTunnels), so re-raise explicitly.
+        val needsReraise = up && !vpnUp && toUp.isEmpty()
+
         toUp.forEach { WireGuardController.setTunnel(this, it, up = true) }
+        if (needsReraise) desired.forEach { WireGuardController.setTunnel(this, it, up = true) }
         toDown.forEach { WireGuardController.setTunnel(this, it, up = false) }
 
         if (toUp.isNotEmpty() || toDown.isNotEmpty()) {
@@ -159,7 +165,7 @@ class WifiMonitorService : Service() {
         firstRun = false
 
         // Verify a raise actually brings the OS VPN up; auto-retry then flag failure.
-        if (toUp.isNotEmpty()) {
+        if (toUp.isNotEmpty() || needsReraise) {
             verifyRetries = 0
             main.removeCallbacks(verify)
             main.postDelayed(verify, VERIFY_MS)

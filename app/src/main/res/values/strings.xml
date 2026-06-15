@@ -78,7 +78,7 @@
     <string name="onboarding_title_ready">Ready to protect</string>
     <string name="onboarding_title_almost">Almost protected</string>
     <string name="onboarding_intro">AutoGuard hands the VPN to the official WireGuard app - so it stays tiny and needs no VPN permission of its own.</string>
-    <string name="onboarding_steps_title">Get going in 3 steps</string>
+    <string name="onboarding_steps_title">Get set up</string>
     <string name="onboarding_step1_title">Install WireGuard</string>
     <string name="onboarding_step1_body">The free, official app from the Play Store.</string>
     <string name="onboarding_step2_title">Create your tunnel</string>
@@ -89,6 +89,9 @@
     <string name="onboarding_step3_body_highlight">Allow remote control apps</string>
     <string name="onboarding_step3_body_suffix">.</string>
     <string name="onboarding_step3_confirm">I\'ve enabled it</string>
+    <string name="onboarding_step_control_title">Allow AutoGuard to control WireGuard</string>
+    <string name="onboarding_step_control_body">Grants the permission WireGuard requires before it will accept tunnel toggles from AutoGuard.</string>
+    <string name="onboarding_step_control_grant">Allow control</string>
     <string name="onboarding_step4_title">Grant location</string>
     <string name="onboarding_step4_body">Lets AutoGuard read the Wi-Fi name to tell home from public networks.</string>
     <string name="onboarding_review_permissions">Review all permissions</string>
@@ -101,20 +104,30 @@
     <!-- Permissions -->
     <string name="settings_title">Settings</string>
     <string name="permissions_info">Location access is how AutoGuard reads the Wi-Fi name and BSSID. Without it, it can\'t tell home from a public hotspot.</string>
+    <string name="perm_control_title">Control WireGuard</string>
+    <string name="perm_control_subtitle">Required to toggle the tunnel</string>
     <string name="perm_location_title">Location</string>
     <string name="perm_location_subtitle">Read Wi-Fi name &amp; BSSID</string>
     <string name="perm_grant">Grant</string>
     <string name="perm_background_title">Background location</string>
     <string name="perm_background_subtitle">\"Allow all the time\" on Android 11+</string>
+    <string name="perm_background_hint">Tap Permissions → Location → Allow all the time</string>
     <string name="perm_set">Set</string>
     <string name="perm_battery_title">Battery optimisation</string>
     <string name="perm_battery_subtitle">Stay alive in the background</string>
     <string name="perm_disable">Disable</string>
     <string name="perm_notifications_title">Notifications</string>
     <string name="perm_notifications_subtitle">Show tunnel status</string>
+    <string name="perm_unused_title">Keep permissions</string>
+    <string name="perm_unused_subtitle">Stop Android auto-resetting unused permissions</string>
     <string name="perm_grant_location">Grant location</string>
     <string name="perm_all_set">You\'re all set.</string>
     <string name="perm_granted">Granted</string>
+
+    <!-- Home: WireGuard control permission revoked -->
+    <string name="control_perm_title">Can\'t control WireGuard</string>
+    <string name="control_perm_body">AutoGuard is missing the permission WireGuard needs to accept tunnel toggles - so it can\'t turn the VPN on or off. This can happen if Android auto-reset it.</string>
+    <string name="control_perm_grant">Grant permission</string>
 
     <!-- Networks -->
     <string name="networks_title">Networks</string>
@@ -229,7 +242,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_tagline">Auto-enables your WireGuard tunnel off trusted networks.</string>
     <string name="about_whatsnew_title">What\'s new</string>
-    <string name="about_whatsnew_body">• Home-screen widget for quick override\n• Auto-retry if the tunnel fails to start\n• Reliability watchdog keeps the guard alive\n• Per-network tunnels and BSSID pinning\n• Live Quick Settings tiles</string>
+    <string name="about_whatsnew_body">• WireGuard tunnels now toggle reliably\n• Grant or repair WireGuard control from the home screen\n• Auto-reconnect if the VPN drops or you disconnect it\n• Stop Android auto-resetting unused permissions\n• Clearer background-location setup</string>
     <string name="about_terms_subtitle">How AutoGuard protects you - and itself</string>
     <string name="about_changelog">Changelog</string>
     <string name="about_changelog_subtitle">View all releases on GitHub</string>

@@ -59,6 +59,7 @@ data class HomeUiState(
     val needsTrustedNetwork: Boolean,
     val showRemoteHint: Boolean,
     val showTunnelFailed: Boolean,
+    val controlPermissionMissing: Boolean,
     val networksSubtitle: String,
     val eventCount: Int,
     val lastSwitch: EventEntry?,
@@ -221,6 +222,10 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                 needsTrustedNetwork = rules.none { it.trusted },
                 showRemoteHint = WireGuardController.isWireGuardInstalled(context) && !settings.remoteControlHintDismissed,
                 showTunnelFailed = settings.tunnelFailed && config.automationEnabled && config.override != OverrideMode.FORCE_OFF,
+                // WireGuard is installed but the OS will drop our toggle broadcasts: the
+                // control permission was never granted, or got revoked (e.g. auto-reset).
+                controlPermissionMissing = WireGuardController.isWireGuardInstalled(context) &&
+                    !WireGuardController.hasControlPermission(context),
                 networksSubtitle = context.getString(R.string.networks_subtitle, rules.count { it.trusted }, rules.count { it.bssids.isNotEmpty() }),
                 eventCount = log.entries().size,
                 lastSwitch = log.entries().firstOrNull(),

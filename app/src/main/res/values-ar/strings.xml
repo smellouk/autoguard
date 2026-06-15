@@ -74,7 +74,7 @@
     <string name="onboarding_title_ready">جاهز للحماية</string>
     <string name="onboarding_title_almost">محمي تقريبًا</string>
     <string name="onboarding_intro">يسلّم AutoGuard الـ VPN إلى تطبيق WireGuard الرسمي - لذا يبقى صغيرًا ولا يحتاج إلى إذن VPN خاص به.</string>
-    <string name="onboarding_steps_title">ابدأ في 3 خطوات</string>
+    <string name="onboarding_steps_title">الإعداد</string>
     <string name="onboarding_step1_title">تثبيت WireGuard</string>
     <string name="onboarding_step1_body">التطبيق الرسمي المجاني من Play Store.</string>
     <string name="onboarding_step2_title">أنشئ نفقك</string>
@@ -94,11 +94,14 @@
     <!-- Permissions -->
     <string name="settings_title">الإعدادات</string>
     <string name="permissions_info">يتيح الوصول إلى الموقع لـ AutoGuard قراءة اسم Wi-Fi و BSSID. بدونه لا يمكنه تمييز المنزل عن نقطة اتصال عامة.</string>
+    <string name="perm_control_title">التحكم في WireGuard</string>
+    <string name="perm_control_subtitle">مطلوب لتبديل النفق</string>
     <string name="perm_location_title">الموقع</string>
     <string name="perm_location_subtitle">قراءة اسم Wi-Fi و BSSID</string>
     <string name="perm_grant">منح</string>
     <string name="perm_background_title">الموقع في الخلفية</string>
     <string name="perm_background_subtitle">«السماح طوال الوقت» على Android 11+</string>
+    <string name="perm_background_hint">اضغط الأذونات ثم الموقع ثم السماح طوال الوقت</string>
     <string name="perm_set">تعيين</string>
     <string name="perm_battery_title">تحسين البطارية</string>
     <string name="perm_battery_subtitle">البقاء نشطًا في الخلفية</string>
@@ -108,6 +111,8 @@
     <string name="perm_grant_location">منح الموقع</string>
     <string name="perm_all_set">كل شيء جاهز.</string>
     <string name="perm_granted">ممنوح</string>
+    <string name="perm_unused_title">الاحتفاظ بالأذونات</string>
+    <string name="perm_unused_subtitle">منع Android من إعادة تعيين الأذونات غير المستخدمة</string>
 
     <!-- Networks -->
     <string name="networks_title">الشبكات</string>
@@ -222,6 +227,9 @@
     <string name="automation_need_both">أضِف شبكة Wi-Fi موثوقة ونفقًا افتراضيًا لتفعيل الأتمتة.</string>
     <string name="automation_need_tunnel">عيّن نفقًا افتراضيًا لتفعيل الأتمتة.</string>
     <string name="automation_need_trusted">أضِف شبكة Wi-Fi موثوقة لتفعيل الأتمتة.</string>
+    <string name="onboarding_step_control_title">السماح لـ AutoGuard بالتحكم في WireGuard</string>
+    <string name="onboarding_step_control_body">يمنح الإذن الذي يطلبه WireGuard قبل قبول تبديل النفق من AutoGuard.</string>
+    <string name="onboarding_step_control_grant">السماح بالتحكم</string>
     <string name="onboarding_step4_title">السماح بالموقع</string>
     <string name="onboarding_step4_body">يتيح لـ AutoGuard قراءة اسم شبكة Wi-Fi للتمييز بين المنزل والشبكات العامة.</string>
     <string name="onboarding_review_permissions">مراجعة كل الأذونات</string>
@@ -229,7 +237,7 @@
     <string name="about_version">الإصدار %1$s</string>
     <string name="about_tagline">يفعّل نفق WireGuard تلقائيًا خارج الشبكات الموثوقة.</string>
     <string name="about_whatsnew_title">الجديد</string>
-    <string name="about_whatsnew_body">• أداة على الشاشة الرئيسية للتبديل السريع\n• إعادة محاولة تلقائية عند فشل بدء النفق\n• مراقبة موثوقية تُبقي الحماية نشطة\n• أنفاق لكل شبكة وتثبيت BSSID\n• مربعات إعدادات سريعة مباشرة</string>
+    <string name="about_whatsnew_body">• أصبح تبديل أنفاق WireGuard موثوقًا الآن\n• امنح أو أصلح تحكم WireGuard من الشاشة الرئيسية\n• إعادة اتصال تلقائية إذا انقطع الـ VPN أو قطعته\n• منع Android من إعادة تعيين الأذونات غير المستخدمة\n• إعداد أوضح للموقع في الخلفية</string>
     <string name="about_terms_subtitle">كيف يحميك AutoGuard - ويحمي نفسه</string>
     <string name="about_changelog">سجل التغييرات</string>
     <string name="about_changelog_subtitle">عرض كل الإصدارات على GitHub</string>
@@ -262,4 +270,9 @@
     <string name="event_tunnel_failed_desc">تعذّر بدء النفق - لم يتصل WireGuard</string>
     <string name="tunnel_failed_title">لم يبدأ النفق</string>
     <string name="tunnel_failed_body">طلب AutoGuard من WireGuard الاتصال لكنه لم يبدأ. افتح WireGuard وتحقّق من النفق.</string>
+
+    <!-- الرئيسية: إذن التحكم في WireGuard مسحوب -->
+    <string name="control_perm_title">تعذّر التحكم في WireGuard</string>
+    <string name="control_perm_body">لا يملك AutoGuard الإذن الذي يحتاجه WireGuard لقبول تبديل النفق — لذا لا يمكنه تشغيل أو إيقاف الـ VPN. قد يحدث هذا إذا أعاد Android تعيينه.</string>
+    <string name="control_perm_grant">منح الإذن</string>
 </resources>
